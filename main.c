@@ -8,22 +8,34 @@ struct Sala {
 };
 
 void afisareSali(struct Sala sali[10], int len) {
+    int x;
+     printf("0.Inapoi\n");
+     printf("1.Sali disponibile\n");
+     scanf("%d", &x);
+     if(x==1){
     printf("%d\n", len);
     printf("Acestea sunt salile disponibile:\n");
     for (int i = 0; i < len; i++) {
         printf("Sala %d: Capacitate %d, Rezervata: %d, Facilitati: %s\n",sali[i].nrSala, sali[i].capacitate, sali[i].rezervata, sali[i].facilitati);
-    }
+    }}
+    
 }
 void afisareSaliDisponibile(struct Sala sali[3], int len) {
+    int x;
+    printf("0.Inapoi\n");
+    printf("1.Sali disponibile");
+    scanf("%d", &x);
+    if(x==1){
     printf("Acestea sunt salile disponibile:\n");
     for (int i = 0; i < len; i++) {
         if  (sali[i].rezervata == 0) {
             printf("Sala %d: Capacitate %d, Rezervata: %d, Facilitati: %s\n",sali[i].nrSala, sali[i].capacitate, sali[i].rezervata, sali[i].facilitati);
         }
+    }   
     }
 }
 
-int main() {   
+int main() {  
     struct Sala s1 = {1, 100, 1, "Parcare"};
     struct Sala s2 = {2, 50, 0, "Wifi"};
     struct Sala s3 = {3, 150, 1, "Iluminat"};
@@ -48,11 +60,11 @@ int main() {
                 afisareSaliDisponibile(vectorSaliDisponibile, len);
                 break;
             case 3:
-                //rezervare(capacitate, perioada, facilitati, sala);
+                
                 printf("Functia de rezervare sala nu este implementata inca.\n");
                 break;
             case 4:
-                //anulare(sala, perioada);
+                
                 printf("Functia de anulare rezervare nu este implementata inca.\n");
                 break;
             case 5:
