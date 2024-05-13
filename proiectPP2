@@ -1,0 +1,174 @@
+#include <iostream>
+#include <string.h>
+#include <fstream>
+
+using std::cin;
+using std::cout;
+
+struct intrare{
+    char VC;
+    char suma[20];
+    char sursa[20],data[9],categ[20];
+};
+
+void Add_Venit(int n, char *array[]){
+
+    std::ofstream out ("conta.txt", std::ios::app);
+
+    if(!out)
+        cout << "\n\033[0;31mFISIERUL NU POATE FI ACCESAT!\033[0m\n\n";
+    else{
+        out << "V ";
+        for(int i=0; i< n-2; i++){
+            out << array[i] << " ";
+        }
+        out << std::endl;
+        cout << "\n\033[0;32mDatele au fost introduse cu succes!\n\033[0m";
+    }
+    out.flush();
+    out.close();
+}
+
+void Add_Cheltuiala(int n, char *array[]){
+
+    std::ofstream out ("conta.txt", std::ios::app);
+
+    if(!out)
+        cout << "\n\033[0;31mFISIERUL NU POATE FI ACCESAT!\033[0m\n\n";
+    else{
+        char num[] = "1234567890";
+        for(int i=0; i<strlen(array[0]); i++){
+            if(!(strchr(num, array[0][i]))){
+                cout << "\n\033[0;31mINTRODUCETI UN NUMAR PENTRU SUMA!\033[0m\n\n";
+                return;
+            }
+        }
+        out << "C ";
+        for(int i=0; i< n-2; i++){
+            out << array[i] << " ";
+        }
+        out << std::endl;
+        cout << "\n\033[0;32mDatele au fost introduse cu succes!\n\n\033[0m";
+    }
+    out.flush();
+    out.close();
+}
+
+void ShowAll(){
+    std::ifstream in ("conta.txt");
+    using std::getline;
+
+    if(!in)
+        cout << "\n\033[0;31mFISIERUL NU POATE FI ACCESAT!\033[0m\n\n";
+    else{
+        struct intrare entry;
+
+        cout << "\nAu fost introduse urmatoarele intrari:\n\n\033[0;36mVenit/Cheltuiala \033[0m  \033[0;31mSuma  \033[0;32m Destinatar/Sursa \033[0m \033[0;35m Data  \033[0m \033[0;33mCategorie\033[0m\n";
+        cout << "\n----------------------------------------\n";
+
+        while(in >> entry.VC >> entry.suma >> entry.sursa >> entry.data >> entry.categ){
+            cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+        }
+        cout << "----------------------------------------\n\n";
+    }
+    in.close();
+}
+
+void show(int k, int n, char arr[]){
+    std::ifstream in("conta.txt");
+    using std::getline;
+
+    if(!in){
+        cout << "\n\033[0;31mFISIERUL NU POATE FI ACCESAT!\033[0m\n\n";
+    } else{
+        struct intrare entry;
+        char cifre[] = "1234567890";
+
+        if(k == 3){
+            for(int i=0; i<strlen(arr); i++){
+                if(!(strchr(cifre, arr[i]))){
+                    cout << "\n\033[0;31mINTRODUCETI UN NUMAR PENTRU SUMA!\033[0m\n\n";
+                    return;
+                }
+            }
+        }
+
+        cout << "\nAu fost introduse urmatoarele intrari:\n\n\033[0;36mVenit/Cheltuiala \033[0m  \033[0;31mSuma  \033[0;32m Destinatar/Sursa \033[0m \033[0;35m Data  \033[0m \033[0;33mCategorie\033[0m\n";
+        cout << "\n----------------------------------------\n";
+
+        while(in >> entry.VC >> entry.suma >> entry.sursa >> entry.data >> entry.categ){
+            switch(k){
+                case 1:
+                    if(entry.VC == 'V')
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+
+                case 2:
+                    if(entry.VC == 'C')
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+
+                case 3:
+                    if(strcmp(entry.suma, arr) == 0)
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+
+                case 4:
+                    if(strcmp(entry.sursa, arr) == 0)
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+
+                case 5:
+                    if(strcmp(entry.data, arr) == 0)
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+
+                case 6:
+                    if(strcmp(entry.categ, arr) == 0)
+                        cout << "\033[0;36m" << entry.VC << " \033[0;31m" << entry.suma << " \033[0;32m" << entry.sursa << " \033[0;35m" << entry.data << " \033[0;33m" << entry.categ << "\033[0m\n";
+                    break;
+            }
+        }
+        cout << "----------------------------------------\n\n";
+    }
+}
+
+void help(){
+    cout << "\n\033[1mComenzi\033[0m:\n1.help - Afiseaza toate comenzile\n";
+    cout << "2.ADDV (\033[0;31msuma,\033[0;32msursa,\033[0;35mdata,\033[0;33mcategorie\033[0m) - Adauga un \033[0;36mvenit\033[0m \n";
+    cout << "3.ADDC (\033[0;31msuma,\033[0;32mdestinatar,\033[0;35mdata,\033[0;33mcategorie\033[0m) - Adauga o \033[0;36mcheltuiala\033[0m \n";
+    cout << "4.SHOWALL - Afiseaza toate intrarile\n";
+    cout << "5.SHOWV - Afiseaza toate \033[0;36mveniturile\033[0m\n";
+    cout << "6.SHOWC - Afiseaza toate \033[0;36mcheltuielile\033[0m\n";
+    cout << "7.SHOWSUM (\033[0;31msuma\033[0m) - Afiseaza toate intrarile care au o anumita \033[0;31msuma\033[0m\n";
+    cout << "8.SHOWDEST (\033[0;32msursa/destinatar\033[0m) - Afiseaza toate intrarile cu numele unei anumite \033[0;32mpersoane/companii\033[0m\n";
+    cout << "9.SHOWDATE (\033[0;35mdata\033[0m) - Afiseaza toate intrarile cu o anumita \033[0;35mdata\033[0m\n";
+    cout << "10.SHOWCATEG (\033[0;33mcategorie\033[0m) - Afiseaza toate intrarile dintr-o anumita \033[0;33mcategorie\033[0m\n\n";
+}
+
+int main(int argc, char* argv[]){
+    
+    if(strcmp(argv[1],"help") == 0)
+        help();
+    else if(strcmp(argv[1], "ADDV") == 0)
+        Add_Venit(argc, argv + 2);
+    else if(strcmp(argv[1], "ADDC") == 0)
+        Add_Cheltuiala(argc, argv + 2);
+    else if(strcmp(argv[1], "SHOWALL") == 0)
+        ShowAll();
+    else if(strcmp(argv[1], "SHOWV") == 0)
+        show(1,argc,argv[0]);
+    else if(strcmp(argv[1], "SHOWC") == 0)
+        show(2,argc,argv[0]);
+    else if(strcmp(argv[1], "SHOWSUM") == 0)
+        show(3,argc,argv[2]);
+    else if(strcmp(argv[1], "SHOWDEST") == 0)
+        show(4,argc,argv[2]);
+    else if(strcmp(argv[1], "SHOWDATE") == 0)
+        show(5,argc,argv[2]);
+    else if(strcmp(argv[1], "SHOWCATEG") == 0)
+        show(6,argc,argv[2]);
+    else
+        cout << "\n\033[0;31mComanda necunoscuta\033[0m\nIntroduceti '\033[0;32mhelp\033[0m' pentru ajutor\n\n";
+    return 0;
+}
